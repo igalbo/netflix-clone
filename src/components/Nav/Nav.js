@@ -1,22 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Nav.css";
+import useNavBackground from "../../hooks/useNavBackground";
 
 function Nav() {
-  const [show, handleShow] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        handleShow(true);
-      } else {
-        handleShow(false);
-      }
-    });
-
-    return () => {
-      window.removeEventListener("scroll");
-    };
-  }, []);
+  const show = useNavBackground();
 
   return (
     <div className={`nav ${show && "nav__black"}`}>
