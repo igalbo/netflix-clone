@@ -28,17 +28,17 @@ function Row({ title, fetchURL, isLargeRow }) {
     },
   };
 
-  const handleClick = (movie) => {
+  const handleClick = async (movie) => {
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
-      movieTrailer(movie?.name || "")
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((error) => console.log(error));
+      try {
+        const url = await movieTrailer(movie.name || movie.title || "");
+        const urlParams = new URLSearchParams(new URL(url).search);
+        setTrailerUrl(urlParams.get("v"));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
